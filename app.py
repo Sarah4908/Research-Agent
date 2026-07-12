@@ -12,10 +12,20 @@ from fpdf import FPDF
 
 load_dotenv()
 
+def _get_config(key: str) -> str:
+    """Read a config value from Streamlit secrets (Streamlit Cloud) if present,
+    falling back to environment variables (.env, for local runs)."""
+    try:
+        if key in st.secrets:
+            return st.secrets[key]
+    except Exception:
+        pass  # no secrets.toml configured locally — that's fine
+    return os.getenv(key, "")
+
 # ── Environment ───────────────────────────────────────────────────────────────
-IBM_API_KEY  = os.getenv("IBM_API_KEY", "")
-WXO_HOST_URL = os.getenv("WXO_HOST_URL", "").rstrip("/")
-WXO_AGENT_ID = os.getenv("WXO_AGENT_ID", "")
+IBM_API_KEY  = _get_config("IBM_API_KEY")
+WXO_HOST_URL = _get_config("WXO_HOST_URL").rstrip("/")
+WXO_AGENT_ID = _get_config("WXO_AGENT_ID")
 
 IAM_TOKEN_URL = "https://iam.cloud.ibm.com/identity/token"
 
@@ -227,11 +237,11 @@ def get_iam_token(api_key: str) -> str:
 def call_orchestrate(question: str) -> str:
     if not IBM_API_KEY or IBM_API_KEY == "your_api_key_here":
         raise ValueError(
-            "IBM_API_KEY is not set. Open your .env file and replace "
-            "'your_api_key_here' with your IBM Cloud IAM API key."
+            "IBM_API_KEY is not set. Please configure it in Streamlit secrets "
+            "(if deployed) or your local .env file."
         )
     if not WXO_HOST_URL or not WXO_AGENT_ID:
-        raise ValueError("WXO_HOST_URL or WXO_AGENT_ID is missing from your .env file.")
+        raise ValueError("WXO_HOST_URL or WXO_AGENT_ID is missing from your config.")
 
     token = get_iam_token(IBM_API_KEY)
     headers = {
