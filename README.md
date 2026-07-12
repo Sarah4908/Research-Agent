@@ -4,7 +4,7 @@ An AI-powered research assistant built on **IBM watsonx Orchestrate**, developed
 
 The agent helps with academic and scientific research tasks: it searches arXiv for relevant literature, summarizes papers, organizes references, suggests research hypotheses, and drafts outline sections for research papers. It also supports direct PDF upload and analysis.
 
-**Live app:** https://research-agent-edunet.streamlit.app/
+**Live:** https://research-agent-edunet.streamlit.app/
 
 ## Problem statement
 
