@@ -1,0 +1,61 @@
+openapi: 3.0.1
+info:
+  title: arXiv Search API
+  description: Search academic papers on arXiv by keyword and retrieve titles, authors, summaries, and links.
+  version: "1.0.0"
+servers:
+  - url: https://export.arxiv.org
+paths:
+  /api/query:
+    get:
+      operationId: searchArxivPapers
+      summary: Search arXiv for papers matching a query
+      description: Returns a list of papers from arXiv matching the given search terms, including title, authors, summary/abstract, and PDF link.
+      parameters:
+        - name: search_query
+          in: query
+          required: true
+          description: >
+            Search query string. Use format like "all:machine learning climate"
+            to search across all fields, or "ti:transformer" to search titles only.
+          schema:
+            type: string
+        - name: start
+          in: query
+          required: false
+          description: Index of the first result to return (for pagination).
+          schema:
+            type: integer
+            default: 0
+        - name: max_results
+          in: query
+          required: false
+          description: Maximum number of results to return.
+          schema:
+            type: integer
+            default: 5
+        - name: sortBy
+          in: query
+          required: false
+          description: Sort results by relevance, lastUpdatedDate, or submittedDate.
+          schema:
+            type: string
+            enum: [relevance, lastUpdatedDate, submittedDate]
+            default: relevance
+        - name: sortOrder
+          in: query
+          required: false
+          description: Sort order, ascending or descending.
+          schema:
+            type: string
+            enum: [ascending, descending]
+            default: descending
+      responses:
+        "200":
+          description: >
+            An Atom XML feed containing matching papers, including title,
+            summary, authors, publication date, and links to the PDF and abstract page.
+          content:
+            application/atom+xml:
+              schema:
+                type: string

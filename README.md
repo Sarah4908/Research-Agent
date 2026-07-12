@@ -4,6 +4,8 @@ An AI-powered research assistant built on **IBM watsonx Orchestrate**, developed
 
 The agent helps with academic and scientific research tasks: it searches arXiv for relevant literature, summarizes papers, organizes references, suggests research hypotheses, and drafts outline sections for research papers. It also supports direct PDF upload and analysis.
 
+**Live app:** https://research-agent-edunet.streamlit.app/
+
 ## Problem statement
 
 > A Research Agent is an AI system designed to assist with academic and scientific research tasks. It can autonomously search for literature, summarize papers, and organize references. Using natural language processing, it understands research questions and retrieves relevant information. The agent can generate reports, suggest hypotheses, and even draft sections of research papers. It saves time by automating repetitive tasks like citation management and data extraction.
@@ -118,7 +120,3 @@ Content-Type: application/json
 
 The agent was tested using Orchestrate's built-in evaluation tool across multiple queries, measuring tool-call accuracy, retrieval confidence, and response relevance — with consistent success rates across test runs. Tool-calling behavior was iteratively tightened (query relevance sorting, single-call-per-query instructions, explicit anti-hallucination guardrails) based on evaluation results.
 
-## Notes
-
-- `.env` is excluded from version control. Never commit real API keys — only variable names are documented here.
-- Built entirely on IBM Cloud Lite services (watsonx Orchestrate), satisfying the problem statement's technology requirement.
