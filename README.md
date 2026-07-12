@@ -117,8 +117,3 @@ Content-Type: application/json
 ## Evaluation
 
 The agent was tested using Orchestrate's built-in evaluation tool across multiple queries, measuring tool-call accuracy, retrieval confidence, and response relevance — with consistent success rates across test runs. Tool-calling behavior was iteratively tightened (query relevance sorting, single-call-per-query instructions, explicit anti-hallucination guardrails) based on evaluation results.
-
-## Notes
-
-- `.env` is excluded from version control. Never commit real API keys — only variable names are documented here.
-- Built entirely on IBM Cloud Lite services (watsonx Orchestrate), satisfying the problem statement's technology requirement.
